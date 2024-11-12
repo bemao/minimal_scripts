@@ -60,7 +60,13 @@ MODEL_DICT = {
 MODEL_MAX_CONTEXT_LENGTH = 512
 FLAGS = flags.FLAGS
 
-rng = np.random.default_rng(512)
+# setting seeds for reproducibility
+seed = 512
+rng = np.random.default_rng(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed) # if using GPU
+torch.backends.cudnn.deterministic = True # if using cudnn
+np.random.seed(seed)
 
 
 class TextDataForBert(Dataset):
